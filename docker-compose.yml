@@ -1,20 +1,21 @@
 version: '2.4'
 services:
-    hblink3:
-        container_name: hblink
-        volumes:
-            - '/etc/hblink3/hblink.cfg:/opt/hblink3/hblink.cfg'
-            - '/var/log/hblink/hblink.log:/opt/hblink3/hblink.log'
-            - '/etc/hblink3/rules.py:/opt/hblink3/rules.py'
-            - '/etc/hblink3/json/:/opt/hblink3/json/'
-        ports:
-               # Master Ports (99 Masters)
-            - '54000-54099:54000-54099/udp'
-               # MMDVM & OBP Ports
-            - '62030-62050:62030-62050/udp'
-               # TCP Port for HBmonitor
-            - '4321:4321/tcp'
-        image: 'yorkshirenet/hblink3:latest'
-        restart: "unless-stopped"
-        environment:
-            - 'PARROT_ENABLE=1'
+  hblink3:
+    container_name: hblink
+    volumes:
+      - '/etc/hblink3/hblink.cfg:/opt/hblink3/hblink.cfg'
+      - '/var/log/hblink/hblink.log:/opt/hblink3/hblink.log'
+      - '/etc/hblink3/rules.py:/opt/hblink3/rules.py'
+      - '/etc/hblink3/json/:/opt/hblink3/json/'
+    ports:
+      # Master Ports (99 Masters)
+      # MMDVM & OBP Ports
+      - '62030:62031/udp'
+      # TCP Port for HBmonitor
+      - '4322:4321'
+    image: 'yorkshirenet/hblink3:latest'
+    restart: "unless-stopped"
+    environment:
+      - 'PARROT_ENABLE=1'
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # Dynamic resolution of host gateway
