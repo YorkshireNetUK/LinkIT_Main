@@ -12,7 +12,7 @@ services:
       # MMDVM & OBP Ports
       - '62030:62031/udp'
       # TCP Port for HBmonitor
-      - '4322:4321'
+      - '4321:4321'
     image: 'yorkshirenet/hblink3:latest'
     restart: "unless-stopped"
     environment:
